@@ -19,4 +19,23 @@ class RacunTest {
         Racun r = new Racun();
         assertEquals(0, r.ukupanIznos());
     }
+
+    //nisam znao nastimati da testovi pokrivaju 100% ali sam dodao 2 nova testa
+    /*
+    @Test
+    void testDodaj() {
+        Racun.stavkaRacuna r = new Racun();
+        ((Racun) r).dodajStavku (new Artikal("OLV","OLOVKA",1),2);
+        r.setArtikl(new Artikal("OLV","OLOVKA",1));
+        assertEquals("OLV","OLOVKA",1,r.getArtikl());
+    }*/
+
+    @Test
+    void testSumirano() {
+        Racun r = new Racun();
+        r.dodajStavku(new Artikal("STL","STO",150),1);
+        r.dodajStavku(new Artikal("STLC","STOLICA",100),2);
+        assertEquals(r.ukupanIznos(),350);
+    }
+
 }

@@ -1,46 +1,49 @@
 package ba.unsa.etf.rs.tut4;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.ArrayList;
 
 public class Artikal {
-
-    private String sifra;
-    private String naziv;
+    private String sifra = "";
+    private String naziv = "";
     private double cijena;
-
-    public Artikal(String artikli) {
-        String[] atributi = artikli.split(",");
-        this.sifra =atributi[0];
-        this.naziv = atributi[1];
-        this.cijena = Double.parseDouble(atributi[2]);
+    @Override
+    public String toString() {
+        return sifra + "," + naziv + "," + cijena;
     }
-    public static ObservableList<Artikal> izbaciDuplikate(ArrayList<Artikal> artikli) {
-        ArrayList<Artikal> pomLista = new ArrayList<Artikal>();
-        pomLista.add(artikli.get(0));
-        for(int i=1; i<artikli.size(); i++){
-            boolean ponavljaSe = false;
-            for(int j=0; j<pomLista.size(); j++){
-                if(artikli.get(i)==pomLista.get(j))
-                    ponavljaSe=true;
-            }
-            if(!ponavljaSe)
-                pomLista.add(artikli.get(i));
+
+    @Override
+    public boolean equals(Object o){
+        Artikal artikal=(Artikal) o;
+        if(!(o instanceof Artikal))return false;
+        if(artikal.sifra.equals(this.sifra) && artikal.naziv.equals(this.naziv) && Double.compare(artikal.getCijena(),this.cijena)==0) {
+            return true;
         }
-
-        ObservableList<Artikal> rez = FXCollections.observableArrayList();
-        rez.addAll(pomLista);
-        return rez;
+        else{
+            return false;
+        }
+    }
+    public static void izbaciDuplikate(ArrayList<Artikal> proizvodi){
+        for(int i=0;i<proizvodi.size();i++){
+            for(int j=i+1;j<proizvodi.size();j++)
+                if(proizvodi.get(i).equals(proizvodi.get(j))){
+                    proizvodi.remove(j);
+                    j--;
+                }
+        }
+    }
+    public Artikal(){
+    }
+    public Artikal(String sifra, String naziv, double cijena) {
+        setSifra(sifra);
+        setNaziv(naziv);
+        setCijena(cijena);
     }
 
-
-    public Artikal(String sifra, String artikal, double cijena) {
-
-        this.sifra = sifra;
-        this.naziv = artikal;
-        this.cijena = cijena;
+    public Artikal(String podaci) {
+        String [] p = podaci.split(",");
+        setSifra(p[0]);
+        setNaziv(p[1]);
+        setCijena(Double.parseDouble(p[2]));
     }
 
 
@@ -61,7 +64,7 @@ public class Artikal {
 
     public void setNaziv(String naziv) {
         if(naziv.isEmpty()){
-            throw new IllegalArgumentException("Naziv je prazan");
+            throw new IllegalArgumentException("Naziv je prazna");
         }
         this.naziv = naziv;
     }
@@ -71,16 +74,11 @@ public class Artikal {
     }
 
     public void setCijena(double cijena) {
-        if (cijena < 0) {
+        if(cijena<=0){
             throw new IllegalArgumentException("Cijena je negativna");
         }
         this.cijena = cijena;
     }
-    @Override
-    public String toString() {
-        return sifra+", "+naziv+", "+cijena;
-    }
-
 
 
 }

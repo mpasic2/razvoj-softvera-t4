@@ -28,6 +28,8 @@ public class Racun {
             this.kolicina = kolicina;
         }
     }
+
+
     private ArrayList<stavkaRacuna> stavkaRacuna;
 
     public Racun() {
@@ -46,4 +48,5 @@ public class Racun {
         }
         return suma;
     }
+
 }

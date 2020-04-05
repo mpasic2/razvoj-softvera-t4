@@ -140,4 +140,24 @@ class ArtikalTest {
         assertFalse(lista.contains(new Artikal("ABC", "Usluga", 100)));
         assertFalse(lista.contains(new Artikal("DEF", "Usluga", 100)));
     }
+
+    @Test
+    void testString(){
+        Artikal artkl = new Artikal();
+        artkl = new Artikal("KNJG", "Knjiga A.S.", 30);
+        String artikal_string = artkl.toString();
+        assertEquals("KNJG,Knjiga A.S.,30.0", artikal_string);
+
+    }
+
+    @Test
+    void testArtString(){
+        Artikal artkl = new Artikal();
+        artkl = new Artikal("KMIS10","MOUSE",14.90);
+        String sastavljeno = artkl.toString();
+        Artikal sastavleni_artkl = new Artikal(sastavljeno);
+        assertEquals("MOUSE",sastavleni_artkl.getNaziv());
+    }
+
+
 }
